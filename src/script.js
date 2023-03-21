@@ -40,11 +40,6 @@ let genListFromArray = function (arr) {
 
 let items = [];
 
-/*
-const response = await fetch('/my/url');
-const data = await response.json();
-*/
-
 async function fetchData(url) {
     let response = await fetch(url);
     let data = await response.json();
@@ -58,8 +53,7 @@ let loadData = (arr) => {
 
 let reload = () => {
     document.getElementById("list-items").innerHTML = genListFromArray(items);
-    //document.getElementById("list-text-input").value = ""
-    //document.getElementById("list-text-input").focus();
+    focus();
 }
 let clearItems = () => {
     items = [];
@@ -70,6 +64,7 @@ let clearItems = () => {
 
 let clearAndFocus = () => {
     document.getElementById("list-text-input").value = ""
+    reload();
     document.getElementById("list-text-input").focus();
 }
 
@@ -77,7 +72,7 @@ window.onload = function() {
     document.getElementById("button-add-item").onclick = () => {
         let valueOfInput = document.getElementById("list-text-input").value;
         if (valueOfInput.trim() == "") {
-            // nothing...
+            focus();
         } else {
             items.push(valueOfInput);
             let htmlFromArr = genListFromArray(items);
@@ -93,4 +88,7 @@ window.onload = function() {
         }
     });
     document.getElementById("button-clear-list").onclick = clearItems;
+    document.getElementById("button-fetch-data").onclick = () => {
+        fetchData("./example.json");
+    };
 }
