@@ -1,3 +1,4 @@
+/*
 code = function (selector) {
     if (!selector) {
         throw new Error('Erro: Argumento \'selector\' está vazio');
@@ -8,22 +9,23 @@ code = function (selector) {
         } else {
             return new {
                 render: () => {
-                    /**
-                     *  render() irá transformar JSON em HTML
-                     *  Exemplo:
-                     *  let = element = {tagName: 'button', innerText: 'ClickMe', onClick: 'test()'} }
-                     *  code(sel).render(element);
-                     *  returns: <button onclick="test()">ClickMe</button>
-                     */
+                    
+                    // *  render() irá transformar JSON em HTML
+                    // *  Exemplo:
+                    // *  let = element = {tagName: 'button', innerText: 'ClickMe', onClick: 'test()'} }
+                    // *  code(sel).render(element);
+                    // *  returns: <button onclick="test()">ClickMe</button>
+                    
 
                 }
             };
         }
     }
 }
+*/
 
 function addItem(obj, key, value) {
-    if (typeof obj != "object" && typeof key != "number" && typeof value != "string") {
+    if (typeof obj != "object" || typeof key != "number" || typeof value != "string") {
         throw new Error("Erro os atributos do addItem() estão com os tipos primitivos incompatíveis ou incorretos.");
     } else {
         obj [key] = value;
@@ -33,7 +35,7 @@ function addItem(obj, key, value) {
 let genListFromArray = function (arr) {
     let content = ""
     for (let index = 0; index < arr.length; index++) {
-        content += `<li>${arr[index]}</li>` + "\n";
+        content += `<li id="item-number-${index}">${arr[index]}</li>` + "\n";
     }
     return content;
 }
@@ -58,7 +60,7 @@ let reload = () => {
 let clearItems = () => {
     items = [];
     document.getElementById("list-items").innerHTML = "<h5>Vazio... Adicione alguns itens</h5>";
-    document.getElementById("list-text-input").value = ""
+    document.getElementById("list-text-input").value = "";
     document.getElementById("list-text-input").focus();
 }
 
