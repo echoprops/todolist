@@ -40,12 +40,28 @@ let genListFromArray = function (arr) {
 
 let items = [];
 
+/*
+const response = await fetch('/my/url');
+const data = await response.json();
+*/
+
+async function fetchData(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    loadData(data.list);
+}
+
+let loadData = (arr) => {
+    items = arr;
+    reload();
+}
+
 let reload = () => {
     document.getElementById("list-items").innerHTML = genListFromArray(items);
     //document.getElementById("list-text-input").value = ""
     //document.getElementById("list-text-input").focus();
 }
-let clear = () => {
+let clearItems = () => {
     items = [];
     document.getElementById("list-items").innerHTML = "<h5>Vazio... Adicione alguns itens</h5>";
     document.getElementById("list-text-input").value = ""
@@ -76,5 +92,5 @@ window.onload = function() {
             document.getElementById("button-add-item").click();
         }
     });
-    document.getElementById("button-clear-list").onclick = clear;
+    document.getElementById("button-clear-list").onclick = clearItems;
 }
