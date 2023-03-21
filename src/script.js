@@ -15,8 +15,6 @@ code = function (selector) {
                     // *  let = element = {tagName: 'button', innerText: 'ClickMe', onClick: 'test()'} }
                     // *  code(sel).render(element);
                     // *  returns: <button onclick="test()">ClickMe</button>
-                    
-
                 }
             };
         }
@@ -35,12 +33,31 @@ function addItem(obj, key, value) {
 let genListFromArray = function (arr) {
     let content = ""
     for (let index = 0; index < arr.length; index++) {
-        content += `<li id="item-number-${index}">${arr[index]}</li>` + "\n";
+        content += `<li id="item-number-${index}">${arr[index]} `
+        + `<button onclick="removeItem(${index})">✖</button>`
+        + `<button onclick="editItem(${index})">Edit Value</button>`
+        + `</li>`
+        + `\n`;
     }
     return content;
 }
 
 let items = [];
+
+let removeItem = (indexOfArr) => {
+    items.splice(indexOfArr, 1);
+    reload();
+}
+
+let editItem = (indexOfArr) => {
+    let value = window.prompt("Put the new value:");
+    if (!value || value.trim() == "") {
+        alert("The entered value is empty");
+    } else {
+        items [indexOfArr] = value;
+        reload();
+    }
+}
 
 async function fetchData(url) {
     let response = await fetch(url);
